@@ -15,7 +15,9 @@ const InputField = ({ lineCount, setLineCount }) => {
     const inputText = event.target.value;
     setText(inputText);
     setIsTextEmpty(inputText.trim().length === 0); // Mostrar u ocultar el icono
-    const lines = inputText.split("\n").filter((line) => line.trim() !== "").length;
+    const lines = inputText
+      .split("\n")
+      .filter((line) => line.trim() !== "").length;
     setLineCount(lines);
   };
 
@@ -27,14 +29,21 @@ const InputField = ({ lineCount, setLineCount }) => {
     }
 
     // Validar que haya más de un renglón en el textarea
-    const lines = text.split("\n").filter((line) => line.trim() !== "").length;
-    if (lines <= 1) {
+    const participantesList = text
+      .split("\n")
+      .filter((line) => line.trim() !== "");
+
+    if (participantesList.length <= 1) {
       setError("Ocupan ser más de 1 participante.");
       return;
     }
 
     // Limpiar el mensaje de error si pasa las validaciones
     setError("");
+
+    // Guardar el título y los participantes en localStorage
+    localStorage.setItem("titulo", title);
+    localStorage.setItem("text", participantesList.join("\n")); // Guardar los nombres correctamente formateados
 
     // Redirigir a /app
     router.push("/app");
@@ -63,6 +72,7 @@ const InputField = ({ lineCount, setLineCount }) => {
             spellCheck="false"
             data-gramm_editor="false"
             onInput={handleInput}
+            placeholder="Ingresa un participante por línea"
           ></textarea>
           <span
             className="absolute bottom-2 right-2 text-sm"
