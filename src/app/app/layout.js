@@ -2,11 +2,9 @@ import "../globals.css";
 
 export default function AppLayout({ children }) {
   return (
-<html lang="en">
-      <body>
-        {children} 
-      </body>
-</html>
+    <div className="app-layout">
+      <main className="app-main">{children}</main>
+    </div>
   );
   
 }

@@ -20,6 +20,10 @@
   line-height: 1.2;
   color: inherit;
 }
+img {
+  width: auto;
+  height: auto;
+}
 
 nav, a, button{
   font-family: "Inter", Helvetica, sans-serif;

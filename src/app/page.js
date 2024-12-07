@@ -12,7 +12,7 @@ export default function Home() {
   
       <Header />
 
-      <main role="main" className="flex flex-col gap-8 row-start-2">
+      <main className="flex flex-col gap-8 row-start-2">
         <AppHero />
 
         <div
@@ -25,7 +25,6 @@ export default function Home() {
 
 
       <footer
-        role="contentinfo"
         className="row-start-3 flex gap-6 items-center justify-center"
       >
         <p className="text-sm text-gray-600">© 2024 Sorteo App. All rights reserved.</p>

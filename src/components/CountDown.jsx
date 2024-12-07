@@ -1,24 +1,22 @@
-export default function CountDown({ cuentaRegresiva, aumentarCuentaRegresiva, disminuirCuentaRegresiva }) {
-    return (
-      <div className="flex items-center justify-between mb-3">
-        <label className="text-xl font-semibold text-white">Cuenta Regresiva</label>
-        <div className="flex items-center">
-          <input
-            type="number"
-            className="border border-gray-300 rounded-md px-2 py-1 w-16"
-            value={cuentaRegresiva}
-            readOnly
-          />
-          <div className="flex flex-col ml-2">
-            <button onClick={aumentarCuentaRegresiva} className="text-gray-200">
-              ▲
-            </button>
-            <button onClick={disminuirCuentaRegresiva} className="text-gray-200">
-              ▼
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  
+"use client";
+import { useState } from "react";
+import CountDown from "@/components/CountDown"; // Asegúrate de que la ruta esté correcta
+
+export default function AppPage() {
+  const [cuentaRegresiva, setCuentaRegresiva] = useState(10);
+
+  // Funciones para aumentar o disminuir la cuenta regresiva
+  const aumentarCuentaRegresiva = () => setCuentaRegresiva(cuentaRegresiva + 1);
+  const disminuirCuentaRegresiva = () => setCuentaRegresiva(cuentaRegresiva > 0 ? cuentaRegresiva - 1 : 0);
+
+  return (
+    <div>
+      <CountDown
+        cuentaRegresiva={cuentaRegresiva}
+        setCuentaRegresiva={setCuentaRegresiva}  // Pasar la función
+        aumentarCuentaRegresiva={aumentarCuentaRegresiva}
+        disminuirCuentaRegresiva={disminuirCuentaRegresiva}
+      />
+    </div>
+  );
+}

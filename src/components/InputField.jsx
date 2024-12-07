@@ -55,7 +55,7 @@ const InputField = ({ lineCount, setLineCount }) => {
         <label className="block text-gray-700 font-bold mb-2">Título</label>
         <input
           type="text"
-          className="border-2 border-gray-300 rounded-md p-2 w-full transition-all duration-150 ease-in-out focus:border-[#D31C92] focus:outline-none focus:border-4"
+          className="border-2 border-gray-300 text-black rounded-md p-2 w-full transition-all duration-150 ease-in-out focus:border-[#D31C92] focus:outline-none focus:border-4"
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -68,7 +68,7 @@ const InputField = ({ lineCount, setLineCount }) => {
             value={text}
             rows="10"
             cols="30"
-            className="textarea-counter border-2 border-gray-300 rounded-md pr-2 pb-3 w-full h-32 resize-none transition-all duration-150 ease-in-out focus:border-[#D31C92] focus:outline-none focus:border-4"
+            className="textarea-counter border-2 text-black border-gray-300 rounded-md p-2 w-full h-32 resize-none transition-all duration-150 ease-in-out focus:border-[#D31C92] focus:outline-none focus:border-4"
             spellCheck="false"
             data-gramm_editor="false"
             onInput={handleInput}

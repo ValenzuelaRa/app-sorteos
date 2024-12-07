@@ -9,7 +9,7 @@ export default function SwitchControl({ label, checked, onChange, id }) {
               id={id}
               checked={checked}
               onChange={onChange}
-              className="sr-only peer"
+              className="sr-only peer text-black"
             />
             <span
               className={`block w-full h-full rounded-full transition-all duration-300 ${
