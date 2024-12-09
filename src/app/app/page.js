@@ -13,9 +13,8 @@ import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import Participants from "@/components/Participans";
 import CountCircle from "@/components/CountCircle";
 
-
 export default function AppPage() {
-  const [ganadores, setGanadores] = useState(0);
+  const [ganadores, setGanadores] = useState(1);
   const [suplentes, setSuplentes] = useState(0);
   const [cuentaRegresiva, setCuentaRegresiva] = useState(10);
   const [filtrarDuplicados, setFiltrarDuplicados] = useState(false);
@@ -25,13 +24,14 @@ export default function AppPage() {
   const [mostrarSorteos, setMostrarSorteos] = useState(true); // Controlar visibilidad
   const [mostrarBotonSorteo, setMostrarBotonSorteo] = useState(false); // Estado para controlar visibilidad del botón "Empezar Sorteo"
   const [sorteoIniciado, setSorteoIniciado] = useState(false); // Estado para saber si el sorteo ha comenzado
+  const [ganador, setGanador] = useState(null); // Nuevo estado para el ganador
+  const [countdownComplete, setCountdownComplete] = useState(false); // Estado para saber si la cuenta regresiva terminó
 
   useEffect(() => {
+    // Lógica para cargar participantes si ya hay datos guardados
     const savedText = localStorage.getItem("text");
     if (savedText) {
-      const participantesList = savedText
-        .split("\n")
-        .filter((line) => line.trim() !== "");
+      const participantesList = savedText.split("\n").filter((line) => line.trim() !== "");
       setParticipantes(participantesList);
     }
   }, []);
@@ -47,6 +47,28 @@ export default function AppPage() {
     setMostrarSorteos(false); // Ocultar las secciones de sorteos
     setMostrarBotonSorteo(true); // Mostrar el botón "Empezar Sorteo"
   };
+
+  // Función para manejar el fin del temporizador y seleccionar varios ganadores
+  const handleTimerComplete = () => {
+    let winners = [];
+
+    // Aseguramos que el número de ganadores no sea mayor que la cantidad de participantes
+    const numberOfWinners = Math.min(ganadores, participantes.length);
+
+    // Selección de ganadores sin repetidos
+    while (winners.length < numberOfWinners) {
+      const randomIndex = Math.floor(Math.random() * participantes.length);
+      const winner = participantes[randomIndex];
+
+      // Verificamos si el ganador ya fue seleccionado
+      if (!winners.includes(winner)) {
+        winners.push(winner);
+      }
+    }
+
+    setGanador(winners); // Establece el array de ganadores
+  };
+
 
   const empezarSorteo = () => {
     setSorteoIniciado(true); // Marcar el sorteo como iniciado
@@ -103,6 +125,7 @@ export default function AppPage() {
                     aumentarGanadores={aumentarGanadores}
                     disminuirGanadores={disminuirGanadores}
                   />
+
                   <SuplControl
                     suplentes={suplentes}
                     aumentarSuplentes={aumentarSuplentes}
@@ -164,7 +187,7 @@ export default function AppPage() {
         </div>
       )}
 
-      {/* Siempre mostrar Participants solo si el sorteo no ha comenzado */}
+      {/* Mostrar los participantes solo si el sorteo no ha comenzado */}
       {!sorteoIniciado && (
         <div id="container" className="relative mx-auto max-w-[800px] px-2 mt-2">
           <Participants participantes={participantes} />
@@ -180,12 +203,24 @@ export default function AppPage() {
           >
             Empezar Sorteo
           </button>
-          
         </div>
       )}
 
       {/* Aquí irá el componente del sorteo cuando empiece */}
-      {sorteoIniciado && <CountCircle cuentaRegresiva={cuentaRegresiva} /> }
+      {!countdownComplete && sorteoIniciado && !ganador && (
+        <CountCircle cuentaRegresiva={cuentaRegresiva} onTimerComplete={handleTimerComplete} />
+      )}
+
+      {/* Mostrar los ganadores después de que termine la cuenta regresiva */}
+      {ganador && (
+        <div className="mt-4 text-center">
+          <h2 className="text-xl font-bold">¡Los ganadores son:</h2>
+          {ganador.map((g, index) => (
+            <p key={index} className="text-lg">{g}</p>
+          ))}
+        </div>
+      )}
+
     </main>
   );
 }
