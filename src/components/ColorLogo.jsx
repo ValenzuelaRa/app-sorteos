@@ -13,11 +13,7 @@ function ColorLogo({ setMostrarSorteos }) {
     setColor(newColor);
   };
 
-  const handleSubmit = () => {
-    console.log('Logo:', logo);
-    console.log('Color:', color);
-    setMostrarSorteos(false); // Ocultar las secciones de sorteos
-  };
+
   
   const colorOptions = [
     '#6495ED', '#8A2091', '#D63636', '#FF5758', '#CB6CE6',
@@ -74,12 +70,7 @@ function ColorLogo({ setMostrarSorteos }) {
           ))}
         </div>
       </div>
-      <button
-        onClick={handleSubmit}
-        className="w-full bg-[#85BF31] text-white py-3 mt-4 rounded-md cursor-pointer"
-      >
-        Confirmar
-      </button>
+
     </div>
   );
 }
