@@ -180,11 +180,12 @@ export default function AppPage() {
           >
             Empezar Sorteo
           </button>
+          
         </div>
       )}
 
       {/* Aquí irá el componente del sorteo cuando empiece */}
-      {sorteoIniciado && <CountCircle cuentaRegresiva={cuentaRegresiva} />}
+      {sorteoIniciado && <CountCircle cuentaRegresiva={cuentaRegresiva} /> }
     </main>
   );
 }

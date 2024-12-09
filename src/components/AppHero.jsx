@@ -9,7 +9,7 @@ const AppHero = () => {
         <div className="container pb-4 pt-4">
           <div className="text-center pb-3">
             <div className="app-icon mb-4 flex items-center justify-center">
-              <FontAwesomeIcon icon={faListOl} style={{ color: "#B77508" }} size="2xl" />
+              <FontAwesomeIcon icon={faListOl} className="text-[#B77508] w-10 h-10" />
             </div>
             <h1 className="text-4xl font-black mb-2">Sorteo por Nombres al Azar</h1>
             <p className="text-lg text-gray-700 mb-4">

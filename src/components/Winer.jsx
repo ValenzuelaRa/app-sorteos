@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-function Participants({ participantes }) {
+function Winner({ participantes }) {
   return (
     <div className="flex flex-col items-center justify-center  w-full mb-4">
       <div className="w-full max-w-[500px]  bg-gradient-to-r from-purple-700 to-pink-500 rounded-t-lg shadow-2xl">

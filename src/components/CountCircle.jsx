@@ -25,7 +25,7 @@ const CountCircle = ({ cuentaRegresiva }) => {
 
             // Formato de tiempo
             return (
-              <div className="flex flex-col justify-center items-center text-neutral-800 text-5xl font-bold">
+              <div className="flex flex-col justify-center items-center text-neutral-800 text-xl font-bold">
                 {minutes > 0 ? (
                   <>
                     <span>{minutes}</span>
@@ -39,9 +39,6 @@ const CountCircle = ({ cuentaRegresiva }) => {
             );
           }}
         </CountdownCircleTimer>
-      </div>
-      <div className="mt-4 text-gray-300">
-        <p>Tiempo restante</p>
       </div>
     </div>
   );
