@@ -214,7 +214,7 @@ export default function AppPage() {
       {/* Mostrar los ganadores después de que termine la cuenta regresiva */}
       {ganador && (
         <div className="mt-4 text-center">
-          <h2 className="text-xl font-bold">¡Los ganadores son:</h2>
+          <h2 className="text-xl font-bold">Ganadores</h2>
           {ganador.map((g, index) => (
             <p key={index} className="text-lg">{g}</p>
           ))}
