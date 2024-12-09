@@ -14,7 +14,7 @@ const Header = () => {
       <div className="flex flex-nowrap w-full items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <Image src={logo} alt="Logo" width={150} height={150} priority />
+          <Image src={logo} alt="Logo" width={200} height={40} />
         </div>
 
         {/* Navegación */}

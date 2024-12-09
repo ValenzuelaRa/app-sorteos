@@ -5,7 +5,7 @@ export default function SuplControl({ suplentes, aumentarSuplentes, disminuirSup
       <div className="flex items-center">
         <input
           type="number"
-          className="border text-black border-gray-300 rounded-md px-2 py-1 w-16"
+          className="border border-gray-300 rounded-md px-2 py-1 w-16"
           value={suplentes}
           readOnly
         />

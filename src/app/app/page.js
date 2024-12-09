@@ -1,44 +1,42 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; 
 import ColorLogo from "@/components/ColorLogo";
-import CountWin from "@/components/CountWin";
 import CountDown from "@/components/CountDown";
 import Logo from "@/components/Logo";
 import SuplControl from "@/components/SuplControl";
 import SwitchControl from "@/components/SwitchControl";
 import WinControl from "@/components/WinControl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faPalette } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import Participants from "@/components/Participans";
-
+import CountCircle from "@/components/CountCircle";
 
 export default function AppPage() {
   const [ganadores, setGanadores] = useState(0);
   const [suplentes, setSuplentes] = useState(0);
   const [cuentaRegresiva, setCuentaRegresiva] = useState(10);
-  const [mostrarSorteos, setMostrarSorteos] = useState(true);
-  const [titulo, setTitulo] = useState('');
-  const [participantes, setParticipantes] = useState([]);
   const [filtrarDuplicados, setFiltrarDuplicados] = useState(false);
-  const [switches, setSwitches] = useState([false, false, false]); // Para los switches
+  const [switches, setSwitches] = useState([false, false, false]);
+  const [titulo, setTitulo] = useState(""); 
+  const [participantes, setParticipantes] = useState([]);
+  const [mostrarSorteos, setMostrarSorteos] = useState(true); // Controlar visibilidad
 
-  const handleCountdownComplete = () => {
-    // Lógica cuando la cuenta regresiva termine
-    console.log('¡Cuenta regresiva terminada!');
-  };
-
-  // Cargar los datos después de que el componente se haya montado
   useEffect(() => {
-    const storedParticipants = localStorage.getItem('participantes');
-    const storedTitle = localStorage.getItem('titulo');
-    
-    if (storedParticipants) {
-      setParticipantes(JSON.parse(storedParticipants));
+    const savedText = localStorage.getItem("text");
+    if (savedText) {
+      const participantesList = savedText
+        .split("\n")
+        .filter((line) => line.trim() !== "");
+      setParticipantes(participantesList);
     }
+  }, []);
 
-    if (storedTitle) {
-      setTitulo(storedTitle);
+  useEffect(() => {
+    const savedTitulo = localStorage.getItem('titulo');
+    if (savedTitulo) {
+      setTitulo(savedTitulo);
     }
   }, []);
 
@@ -64,27 +62,25 @@ export default function AppPage() {
     "Excluir Participantes",
   ];
 
-  const comenzarSorteo = () => {
-    setMostrarSorteos(false); // Ocultar todo el contenido y mostrar la cuenta regresiva
-  };
+  
 
   return (
-    <main className="w-full ">
-      <div id="container" className="relative mx-auto max-w-[800px] px-4 ">
-        <div className="flex flex-col items-center justify-center gap-8 w-full ">
+    <main role="main" className="w-full">
+      <div id="container" className="relative mx-auto max-w-[800px] px-4">
+        <div className="flex flex-col items-center justify-center gap-8 w-full">
           <Logo />
-
-          {mostrarSorteos ? (
-            <div className="w-full max-w-[500px] py-1 bg-gradient-to-r from-purple-700 to-pink-500 rounded-lg shadow-2xl">
-              <h1 className="text-2xl font-bold text-center text-white mb-1 ">
-                Opciones
-              </h1>
+          
+          <div className="w-full max-w-[500px] py-10 bg-gradient-to-r from-purple-700 to-pink-500 rounded-lg shadow-2xl">
+            <h1 className="text-2xl font-bold text-center text-white mb-4 pb-2">
+              Opciones
+            </h1>
+            {mostrarSorteos && (  // Mostrar solo si mostrarSorteos es true
               <div id="sorteos" className="border-t border-neutral-50 px-4 py-3 w-full">
                 <div className="mb-3">
                   <label className="font-light text-lg text-gray-200">Título</label>
                   <input
                     type="text"
-                    className="border border-gray-300 text-black rounded-md px-4 py-2 w-full"
+                    className="border border-gray-300 rounded-md px-4 py-2 w-full"
                     value={titulo}
                     onChange={(e) => setTitulo(e.target.value)}
                   />
@@ -140,33 +136,22 @@ export default function AppPage() {
                   Identidad de Marca
                 </div>
 
-                <div className="border-t border-l-neutral-300 py-">
+                <div className="border-t border-l-neutral-300 py-4">
                   <ColorLogo setMostrarSorteos={setMostrarSorteos} />
                 </div>
               </div>
-            </div>
-          ) : (
-            <CountWin onCountdownComplete={handleCountdownComplete} />
-          )}
+            )}
+          </div>
         </div>
       </div>
 
       {/* Siempre mostrar Participants */}
-      <div id="container" className="relative mx-auto max-w-[800px] px-2 mt-2">
+      <div id="container" className="relative mx-auto max-w-[800px] px-2 mt-5">
         <Participants participantes={participantes} />
       </div>
 
-      {/* Botón Comenzar */}
-      {mostrarSorteos && (
-        <div className="w-full py-2 rounded-lg shadow-2xl text-center">
-          <button
-            className="bg-[#4CAF50] text-white text-lg font-bold py-3 px-6 rounded-md"
-            onClick={comenzarSorteo}
-          >
-            ¡Comenzar Sorteo!
-          </button>
-        </div>
-      )}
+      
     </main>
+    
   );
 }
